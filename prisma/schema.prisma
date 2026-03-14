@@ -32,3 +32,24 @@ model Session {
   refreshToken        String?
   refreshTokenExpires DateTime?
 }
+
+model TranslationJob {
+  id               String   @id @default(cuid())
+  shop             String
+  productId        String
+  targetLocale     String
+  status           String   @default("pending")
+  originalTitle    String
+  translatedTitle  String?
+  originalBody     String
+  translatedBody   String?
+  createdAt        DateTime @default(now())
+}
+
+model AppSettings {
+  id              String @id @default(cuid())
+  shop            String @unique
+  translationMode String @default("mock")
+  apiKey          String?
+  defaultLocales  String @default("en,ja")
+}
