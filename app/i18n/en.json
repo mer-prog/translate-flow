@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "TranslateFlow",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "processing": "Processing..."
+  },
+  "dashboard": {
+    "banner": "Select products to translate, then click \"Translate Selected\" to start.",
+    "translateSelected": "Translate Selected ({count})"
+  },
+  "translate": {
+    "pageTitle": "Translate Products",
+    "selectedProducts": "Selected Products ({count})",
+    "translating": "Translating...",
+    "previewTranslation": "Preview Translation",
+    "savedSuccess": "Translations saved to Shopify successfully!",
+    "translationPreview": "Translation Preview",
+    "saving": "Saving...",
+    "saveToShopify": "Save to Shopify"
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "translationMode": "Translation Mode",
+    "translationModeDescription": "Choose between mock translation (free, for testing) and Claude API (production quality).",
+    "mockMode": "Mock (Free - for testing)",
+    "claudeApiMode": "Claude API (Production)",
+    "claudeApiKey": "Claude API Key",
+    "claudeApiKeyHelp": "Your Anthropic API key. Charges apply per translation.",
+    "defaultLanguages": "Default Languages",
+    "defaultLanguagesDescription": "Comma-separated locale codes for target languages.",
+    "defaultLocales": "Default Locales",
+    "defaultLocalesHelp": "e.g., \"en,ja\" for English and Japanese",
+    "savedSuccess": "Settings saved successfully!",
+    "saveSettings": "Save Settings"
+  },
+  "productList": {
+    "resourceSingular": "product",
+    "resourcePlural": "products",
+    "noTranslations": "No translations",
+    "headingProduct": "Product",
+    "headingTranslations": "Translations"
+  },
+  "preview": {
+    "originalTitle": "Original Title",
+    "translatedTitle": "Translated Title",
+    "originalDescription": "Original Description",
+    "translatedDescription": "Translated Description"
+  },
+  "languageSelector": {
+    "targetLanguages": "Target Languages"
+  },
+  "languageToggle": {
+    "label": "Language"
+  }
+}

@@ -1,4 +1,5 @@
 import { BlockStack, Checkbox, Text } from "@shopify/polaris";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface LanguageSelectorProps {
   availableLocales: Array<{ locale: string; name: string }>;
@@ -11,6 +12,8 @@ export function LanguageSelector({
   selectedLocales,
   onChange,
 }: LanguageSelectorProps) {
+  const { t } = useTranslation();
+
   const handleChange = (locale: string, checked: boolean) => {
     if (checked) {
       onChange([...selectedLocales, locale]);
@@ -22,7 +25,7 @@ export function LanguageSelector({
   return (
     <BlockStack gap="200">
       <Text as="h3" variant="headingMd">
-        Target Languages
+        {t("languageSelector.targetLanguages")}
       </Text>
       {availableLocales.map(({ locale, name }) => (
         <Checkbox

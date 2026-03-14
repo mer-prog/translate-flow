@@ -8,6 +8,7 @@ import {
   useIndexResourceState,
 } from "@shopify/polaris";
 import { ImageIcon } from "@shopify/polaris-icons";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface Product {
   id: string;
@@ -29,9 +30,11 @@ export function ProductTranslationList({
   products,
   onSelectionChange,
 }: ProductTranslationListProps) {
+  const { t } = useTranslation();
+
   const resourceName = {
-    singular: "product",
-    plural: "products",
+    singular: t("productList.resourceSingular"),
+    plural: t("productList.resourcePlural"),
   };
 
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
@@ -73,7 +76,7 @@ export function ProductTranslationList({
               </Badge>
             ))
           ) : (
-            <Badge tone="attention">No translations</Badge>
+            <Badge tone="attention">{t("productList.noTranslations")}</Badge>
           )}
         </InlineStack>
       </IndexTable.Cell>
@@ -89,8 +92,8 @@ export function ProductTranslationList({
       }
       onSelectionChange={handleSelectionChange}
       headings={[
-        { title: "Product" },
-        { title: "Translations" },
+        { title: t("productList.headingProduct") },
+        { title: t("productList.headingTranslations") },
       ]}
     >
       {rowMarkup}

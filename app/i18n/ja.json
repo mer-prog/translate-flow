@@ -1,0 +1,56 @@
+{
+  "common": {
+    "appName": "TranslateFlow",
+    "dashboard": "ダッシュボード",
+    "settings": "設定",
+    "processing": "処理中..."
+  },
+  "dashboard": {
+    "banner": "翻訳する商品を選択し、「選択した商品を翻訳」をクリックしてください。",
+    "translateSelected": "選択した商品を翻訳 ({count})"
+  },
+  "translate": {
+    "pageTitle": "商品を翻訳",
+    "selectedProducts": "選択中の商品 ({count})",
+    "translating": "翻訳中...",
+    "previewTranslation": "翻訳プレビュー",
+    "savedSuccess": "翻訳がShopifyに正常に保存されました！",
+    "translationPreview": "翻訳プレビュー",
+    "saving": "保存中...",
+    "saveToShopify": "Shopifyに保存"
+  },
+  "settings": {
+    "pageTitle": "設定",
+    "translationMode": "翻訳モード",
+    "translationModeDescription": "モック翻訳（無料・テスト用）とClaude API（本番品質）を切り替えます。",
+    "mockMode": "モック（無料 - テスト用）",
+    "claudeApiMode": "Claude API（本番用）",
+    "claudeApiKey": "Claude APIキー",
+    "claudeApiKeyHelp": "AnthropicのAPIキーを入力してください。翻訳ごとに課金されます。",
+    "defaultLanguages": "デフォルト言語",
+    "defaultLanguagesDescription": "対象言語のロケールコードをカンマ区切りで入力してください。",
+    "defaultLocales": "デフォルトロケール",
+    "defaultLocalesHelp": "例: \"en,ja\" （英語と日本語）",
+    "savedSuccess": "設定が正常に保存されました！",
+    "saveSettings": "設定を保存"
+  },
+  "productList": {
+    "resourceSingular": "商品",
+    "resourcePlural": "商品",
+    "noTranslations": "翻訳なし",
+    "headingProduct": "商品",
+    "headingTranslations": "翻訳状況"
+  },
+  "preview": {
+    "originalTitle": "原文タイトル",
+    "translatedTitle": "翻訳後タイトル",
+    "originalDescription": "原文説明",
+    "translatedDescription": "翻訳後説明"
+  },
+  "languageSelector": {
+    "targetLanguages": "対象言語"
+  },
+  "languageToggle": {
+    "label": "言語"
+  }
+}

@@ -26,6 +26,7 @@ import {
 import { LanguageSelector } from "../components/LanguageSelector";
 import { TranslationPreview } from "../components/TranslationPreview";
 import prisma from "../db.server";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin, session } = await authenticate.admin(request);
@@ -163,6 +164,7 @@ export default function TranslatePage() {
   const { products, availableLocales, shop } = useLoaderData<typeof loader>();
   const fetcher = useFetcher<typeof action>();
   const [selectedLocales, setSelectedLocales] = useState<string[]>([]);
+  const { t } = useTranslation();
 
   const isLoading = fetcher.state !== "idle";
   const previews = fetcher.data?.previews ?? [];
@@ -187,9 +189,9 @@ export default function TranslatePage() {
   return (
     <Page
       backAction={{ url: "/app" }}
-      title="Translate Products"
+      title={t("translate.pageTitle")}
     >
-      <TitleBar title="Translate Products" />
+      <TitleBar title={t("translate.pageTitle")} />
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>
@@ -197,7 +199,9 @@ export default function TranslatePage() {
               <Card>
                 <BlockStack gap="400">
                   <Text as="h2" variant="headingMd">
-                    Selected Products ({products.length})
+                    {t("translate.selectedProducts", {
+                      count: products.length,
+                    })}
                   </Text>
                   {products.map((product: any) => (
                     <Text key={product.id} as="p" variant="bodyMd">
@@ -222,8 +226,8 @@ export default function TranslatePage() {
                   onClick={handlePreview}
                 >
                   {isLoading && fetcher.formData?.get("intent") === "preview"
-                    ? "Translating..."
-                    : "Preview Translation"}
+                    ? t("translate.translating")
+                    : t("translate.previewTranslation")}
                 </Button>
               </InlineStack>
 
@@ -231,7 +235,7 @@ export default function TranslatePage() {
                 <InlineStack align="center" gap="200">
                   <Spinner size="small" />
                   <Text as="span" variant="bodyMd">
-                    Processing...
+                    {t("common.processing")}
                   </Text>
                 </InlineStack>
               )}
@@ -239,7 +243,7 @@ export default function TranslatePage() {
               {saved && (
                 <Banner tone="success">
                   <Text as="p" variant="bodyMd">
-                    Translations saved to Shopify successfully!
+                    {t("translate.savedSuccess")}
                   </Text>
                 </Banner>
               )}
@@ -259,7 +263,7 @@ export default function TranslatePage() {
               {previews.length > 0 && !saved && (
                 <BlockStack gap="400">
                   <Text as="h2" variant="headingLg">
-                    Translation Preview
+                    {t("translate.translationPreview")}
                   </Text>
                   {previews.map((preview: any, index: number) => (
                     <TranslationPreview
@@ -279,8 +283,8 @@ export default function TranslatePage() {
                     onClick={handleSave}
                   >
                     {isLoading && fetcher.formData?.get("intent") === "save"
-                      ? "Saving..."
-                      : "Save to Shopify"}
+                      ? t("translate.saving")
+                      : t("translate.saveToShopify")}
                   </Button>
                 </BlockStack>
               )}

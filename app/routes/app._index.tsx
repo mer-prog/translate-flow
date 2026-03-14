@@ -16,6 +16,7 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 import { fetchProducts } from "../services/product-fetcher.server";
 import { ProductTranslationList } from "../components/ProductTranslationList";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
@@ -27,6 +28,7 @@ export default function Dashboard() {
   const { products } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
+  const { t } = useTranslation();
 
   const handleTranslate = useCallback(() => {
     if (selectedProductIds.length === 0) return;
@@ -37,14 +39,14 @@ export default function Dashboard() {
 
   return (
     <Page>
-      <TitleBar title="TranslateFlow" />
+      <TitleBar title={t("common.appName")} />
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>
             <BlockStack gap="400">
               <Banner tone="info">
                 <Text as="p" variant="bodyMd">
-                  Select products to translate, then click "Translate Selected" to start.
+                  {t("dashboard.banner")}
                 </Text>
               </Banner>
               <Card padding="0">
@@ -58,7 +60,9 @@ export default function Dashboard() {
                 disabled={selectedProductIds.length === 0}
                 onClick={handleTranslate}
               >
-                {`Translate Selected (${selectedProductIds.length})`}
+                {t("dashboard.translateSelected", {
+                  count: selectedProductIds.length,
+                })}
               </Button>
             </BlockStack>
           </Layout.Section>

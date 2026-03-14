@@ -1,4 +1,5 @@
 import { BlockStack, Card, InlineGrid, Text, Box } from "@shopify/polaris";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface TranslationPreviewProps {
   productTitle: string;
@@ -17,6 +18,8 @@ export function TranslationPreview({
   translatedBody,
   targetLocale,
 }: TranslationPreviewProps) {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <BlockStack gap="400">
@@ -27,7 +30,7 @@ export function TranslationPreview({
           <Box>
             <BlockStack gap="200">
               <Text as="h4" variant="headingSm" tone="subdued">
-                Original Title
+                {t("preview.originalTitle")}
               </Text>
               <Text as="p" variant="bodyMd">
                 {originalTitle}
@@ -37,7 +40,7 @@ export function TranslationPreview({
           <Box>
             <BlockStack gap="200">
               <Text as="h4" variant="headingSm">
-                Translated Title
+                {t("preview.translatedTitle")}
               </Text>
               <Text as="p" variant="bodyMd">
                 {translatedTitle}
@@ -49,7 +52,7 @@ export function TranslationPreview({
           <Box>
             <BlockStack gap="200">
               <Text as="h4" variant="headingSm" tone="subdued">
-                Original Description
+                {t("preview.originalDescription")}
               </Text>
               <Box
                 padding="300"
@@ -66,7 +69,7 @@ export function TranslationPreview({
           <Box>
             <BlockStack gap="200">
               <Text as="h4" variant="headingSm">
-                Translated Description
+                {t("preview.translatedDescription")}
               </Text>
               <Box
                 padding="300"

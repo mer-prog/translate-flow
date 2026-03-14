@@ -17,6 +17,7 @@ import { useState, useCallback, useEffect } from "react";
 
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session } = await authenticate.admin(request);
@@ -67,6 +68,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Settings() {
   const data = useLoaderData<typeof loader>();
   const fetcher = useFetcher<typeof action>();
+  const { t } = useTranslation();
 
   const [translationMode, setTranslationMode] = useState(
     data.translationMode,
@@ -91,34 +93,34 @@ export default function Settings() {
   }, [translationMode, apiKey, defaultLocales, fetcher]);
 
   const modeOptions = [
-    { label: "Mock (Free - for testing)", value: "mock" },
-    { label: "Claude API (Production)", value: "claude-api" },
+    { label: t("settings.mockMode"), value: "mock" },
+    { label: t("settings.claudeApiMode"), value: "claude-api" },
   ];
 
   return (
-    <Page title="Settings">
-      <TitleBar title="Settings" />
+    <Page title={t("settings.pageTitle")}>
+      <TitleBar title={t("settings.pageTitle")} />
       <BlockStack gap="500">
         <Layout>
           <Layout.AnnotatedSection
-            title="Translation Mode"
-            description="Choose between mock translation (free, for testing) and Claude API (production quality)."
+            title={t("settings.translationMode")}
+            description={t("settings.translationModeDescription")}
           >
             <Card>
               <BlockStack gap="400">
                 <Select
-                  label="Translation Mode"
+                  label={t("settings.translationMode")}
                   options={modeOptions}
                   value={translationMode}
                   onChange={setTranslationMode}
                 />
                 {translationMode === "claude-api" && (
                   <TextField
-                    label="Claude API Key"
+                    label={t("settings.claudeApiKey")}
                     value={apiKey}
                     onChange={setApiKey}
                     type="password"
-                    helpText="Your Anthropic API key. Charges apply per translation."
+                    helpText={t("settings.claudeApiKeyHelp")}
                     autoComplete="off"
                   />
                 )}
@@ -127,15 +129,15 @@ export default function Settings() {
           </Layout.AnnotatedSection>
 
           <Layout.AnnotatedSection
-            title="Default Languages"
-            description="Comma-separated locale codes for target languages."
+            title={t("settings.defaultLanguages")}
+            description={t("settings.defaultLanguagesDescription")}
           >
             <Card>
               <TextField
-                label="Default Locales"
+                label={t("settings.defaultLocales")}
                 value={defaultLocales}
                 onChange={setDefaultLocales}
-                helpText='e.g., "en,ja" for English and Japanese'
+                helpText={t("settings.defaultLocalesHelp")}
                 autoComplete="off"
               />
             </Card>
@@ -146,7 +148,7 @@ export default function Settings() {
               {saved && (
                 <Banner tone="success">
                   <Text as="p" variant="bodyMd">
-                    Settings saved successfully!
+                    {t("settings.savedSuccess")}
                   </Text>
                 </Banner>
               )}
@@ -155,7 +157,7 @@ export default function Settings() {
                 onClick={handleSave}
                 loading={fetcher.state !== "idle"}
               >
-                Save Settings
+                {t("settings.saveSettings")}
               </Button>
             </BlockStack>
           </Layout.Section>
