@@ -1,5 +1,7 @@
 import type { AdminApiContext } from "@shopify/shopify-app-remix/server";
 
+type AdminClient = AdminApiContext;
+
 export interface ShopLocale {
   locale: string;
   name: string;
@@ -19,7 +21,7 @@ const SHOP_LOCALES_QUERY = `#graphql
 `;
 
 export async function getShopLocales(
-  admin: AdminApiContext["admin"],
+  admin: AdminClient,
 ): Promise<ShopLocale[]> {
   const response = await admin.graphql(SHOP_LOCALES_QUERY);
   const data = await response.json();
@@ -63,7 +65,7 @@ const TRANSLATABLE_CONTENT_QUERY = `#graphql
 `;
 
 export async function getTranslatableContent(
-  admin: AdminApiContext["admin"],
+  admin: AdminClient,
   resourceId: string,
 ): Promise<Array<{ key: string; value: string; digest: string; locale: string }>> {
   const response = await admin.graphql(TRANSLATABLE_CONTENT_QUERY, {
@@ -74,7 +76,7 @@ export async function getTranslatableContent(
 }
 
 export async function registerTranslations(
-  admin: AdminApiContext["admin"],
+  admin: AdminClient,
   resourceId: string,
   translations: TranslationEntry[],
 ): Promise<{ success: boolean; errors: string[] }> {

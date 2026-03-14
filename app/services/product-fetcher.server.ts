@@ -1,5 +1,7 @@
 import type { AdminApiContext } from "@shopify/shopify-app-remix/server";
 
+type AdminClient = AdminApiContext;
+
 export interface Product {
   id: string;
   title: string;
@@ -47,7 +49,7 @@ const TRANSLATIONS_QUERY = `#graphql
 `;
 
 export async function fetchProducts(
-  admin: AdminApiContext["admin"],
+  admin: AdminClient,
   first: number = 50,
 ): Promise<Product[]> {
   const response = await admin.graphql(PRODUCTS_QUERY, {
@@ -68,7 +70,7 @@ export async function fetchProducts(
       });
       const transData = await transResponse.json();
       const translations = transData.data?.translatableResource?.translations ?? [];
-      translatedLocales = [...new Set(translations.map((t: { locale: string }) => t.locale))];
+      translatedLocales = [...new Set(translations.map((t: { locale: string }) => t.locale))] as string[];
     } catch {
       // Translations API may not be available, continue without translation data
     }
@@ -87,7 +89,7 @@ export async function fetchProducts(
 }
 
 export async function fetchProduct(
-  admin: AdminApiContext["admin"],
+  admin: AdminClient,
   productId: string,
 ): Promise<Product | null> {
   const response = await admin.graphql(

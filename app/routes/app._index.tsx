@@ -58,7 +58,7 @@ export default function Dashboard() {
                 disabled={selectedProductIds.length === 0}
                 onClick={handleTranslate}
               >
-                Translate Selected ({selectedProductIds.length})
+                {`Translate Selected (${selectedProductIds.length})`}
               </Button>
             </BlockStack>
           </Layout.Section>

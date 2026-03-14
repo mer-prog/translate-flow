@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   IndexTable,
   Text,
@@ -34,38 +35,15 @@ export function ProductTranslationList({
   };
 
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
-    useIndexResourceState(products);
+    useIndexResourceState(products as unknown as Array<{ id: string; [key: string]: unknown }>);
 
-  const handleSelection = (
-    selectionType: string,
-    isSelecting: boolean,
-    selection?: string | [number, number],
-  ) => {
-    handleSelectionChange(selectionType as any, isSelecting, selection);
-
-    // Calculate new selection after state update
-    setTimeout(() => {
-      const form = document.querySelector("form");
-      if (form) {
-        const checkboxes = form.querySelectorAll<HTMLInputElement>(
-          'input[type="checkbox"]:checked',
-        );
-        const ids = Array.from(checkboxes)
-          .map((cb) => cb.value)
-          .filter((v) => v !== "on");
-        onSelectionChange(ids);
-      }
-    }, 0);
-  };
-
-  // Sync selection state with parent
-  if (selectedResources.length > 0 || allResourcesSelected) {
-    const selected = allResourcesSelected
-      ? products.map((p) => p.id)
-      : selectedResources;
-    // Use microtask to avoid setState during render
-    queueMicrotask(() => onSelectionChange(selected));
-  }
+  useEffect(() => {
+    if (allResourcesSelected) {
+      onSelectionChange(products.map((p) => p.id));
+    } else {
+      onSelectionChange(selectedResources);
+    }
+  }, [selectedResources, allResourcesSelected]);
 
   const rowMarkup = products.map((product, index) => (
     <IndexTable.Row
@@ -109,7 +87,7 @@ export function ProductTranslationList({
       selectedItemsCount={
         allResourcesSelected ? "All" : selectedResources.length
       }
-      onSelectionChange={handleSelection}
+      onSelectionChange={handleSelectionChange}
       headings={[
         { title: "Product" },
         { title: "Translations" },
